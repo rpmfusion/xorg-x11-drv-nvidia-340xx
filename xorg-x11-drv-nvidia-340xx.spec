@@ -8,7 +8,7 @@
 Name:            xorg-x11-drv-nvidia-340xx
 Epoch:           1
 Version:         340.65
-Release:         3%{?dist}
+Release:         4%{?dist}
 Summary:         NVIDIA's 340xx series proprietary display driver for NVIDIA graphic cards
 
 Group:           User Interface/X Hardware Support
@@ -44,6 +44,12 @@ Requires:        which
 Requires:        %{_nvidia_serie}-kmod >= %{?epoch}:%{version}
 Requires:        %{name}-libs%{_isa} = %{?epoch}:%{version}-%{release}
 
+%if 0%{?fedora} == 20
+Obsoletes:       xorg-x11-drv-nvidia < %{?epoch}:%{version}-%{release}
+Provides:        xorg-x11-drv-nvidia = %{?epoch}:%{version}-%{release}
+Obsoletes:       nvidia-kmod < %{?epoch}:%{version}-%{release}
+Provides:        nvidia-kmod-common = %{?epoch}:%{version}
+%endif
 Obsoletes:       %{_nvidia_serie}-kmod < %{?epoch}:%{version}
 Provides:        %{_nvidia_serie}-kmod-common = %{?epoch}:%{version}
 Conflicts:       xorg-x11-drv-nvidia-beta
@@ -52,7 +58,9 @@ Conflicts:       xorg-x11-drv-nvidia-71xx
 Conflicts:       xorg-x11-drv-nvidia-96xx
 Conflicts:       xorg-x11-drv-nvidia-173xx
 Conflicts:       xorg-x11-drv-nvidia-304xx
+%if 0%{?fedora} != 20
 Conflicts:       xorg-x11-drv-nvidia
+%endif
 Conflicts:       xorg-x11-drv-fglrx
 Conflicts:       xorg-x11-drv-catalyst
 
@@ -91,6 +99,10 @@ Summary:         Development files for %{name}
 Group:           Development/Libraries
 Requires:        %{name}-libs%{_isa} = %{?epoch}:%{version}-%{release}
 Requires:        %{name}-cuda%{_isa} = %{?epoch}:%{version}-%{release}
+%if 0%{?fedora} == 20
+Obsoletes:       xorg-x11-drv-nvidia-devel < %{?epoch}:%{version}-%{release}
+Provides:        xorg-x11-drv-nvidia-devel = %{?epoch}:%{version}-%{release}
+%endif
 
 %description devel
 This package provides the development files of the %{name} package,
@@ -123,6 +135,10 @@ which is generated during the build of main package.
 Summary:         Libraries for %{name}
 Group:           User Interface/X Hardware Support
 Requires:        %{name} = %{?epoch}:%{version}-%{release}
+%if 0%{?fedora} == 20
+Obsoletes:       xorg-x11-drv-nvidia-libs < %{?epoch}:%{version}-%{release}
+Provides:        xorg-x11-drv-nvidia-libs = %{?epoch}:%{version}-%{release}
+%endif
 Requires:        libvdpau%{_isa} >= 0.5
 
 %description libs
@@ -509,6 +525,9 @@ fi ||:
 
 
 %changelog
+* Thu Jan 15 2015 Przemysław Palacz <pprzemal@gmail.com> - 1:340.65-4
+- Replace main nvidia driver in F20 with this legacy version
+
 * Sun Jan 11 2015 Przemysław Palacz <pprzemal@gmail.com> - 1:340.65-3
 - Switch libnvidia-ml and nvidia-debugdump to the cuda subpackage again
 
