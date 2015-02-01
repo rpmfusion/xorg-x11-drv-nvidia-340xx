@@ -7,8 +7,8 @@
 
 Name:            xorg-x11-drv-nvidia-340xx
 Epoch:           1
-Version:         340.65
-Release:         3%{?dist}
+Version:         340.76
+Release:         1%{?dist}
 Summary:         NVIDIA's 340xx series proprietary display driver for NVIDIA graphic cards
 
 Group:           User Interface/X Hardware Support
@@ -92,9 +92,14 @@ Group:           Development/Libraries
 Requires:        %{name}-libs%{_isa} = %{?epoch}:%{version}-%{release}
 Requires:        %{name}-cuda%{_isa} = %{?epoch}:%{version}-%{release}
 
+#Don't put an epoch here
+Provides:        cuda-drivers-devel = %{version}
+Provides:        cuda-drivers-devel%{_isa} = %{version}
+
 %description devel
 This package provides the development files of the %{name} package,
 such as OpenGL headers.
+
 
 %package cuda
 Summary:         CUDA libraries for %{name}
@@ -107,9 +112,11 @@ Conflicts:       xorg-x11-drv-nvidia-cuda
 
 #Don't put an epoch here
 Provides:        cuda-drivers = %{version}
+Provides:        cuda-drivers%{_isa} = %{version}
 
 %description cuda
 This package provides the CUDA driver libraries for %{name}.
+
 
 %package kmodsrc
 Summary:         %{name} kernel module source code
@@ -118,6 +125,7 @@ Group:           System Environment/Kernel
 %description kmodsrc
 Source tree used for building kernel module packages (%{name}-kmod)
 which is generated during the build of main package.
+
 
 %package libs
 Summary:         Libraries for %{name}
@@ -183,7 +191,7 @@ install -p -m 0755 tls/lib*.so.%{version}      $RPM_BUILD_ROOT%{_nvidia_libdir}/
 %ifarch x86_64 i686
 # OpenCL config
 install    -m 0755         -d $RPM_BUILD_ROOT%{_sysconfdir}/OpenCL/vendors/
-install -p -m 0755 nvidia.icd $RPM_BUILD_ROOT%{_sysconfdir}/OpenCL/vendors/
+install -p -m 0644 nvidia.icd $RPM_BUILD_ROOT%{_sysconfdir}/OpenCL/vendors/
 install -p -m 0755 libOpenCL.so.1.0.0          $RPM_BUILD_ROOT%{_nvidia_libdir}/
 ln -s libOpenCL.so.1.0.0 $RPM_BUILD_ROOT%{_nvidia_libdir}/libOpenCL.so.1
 ln -s libOpenCL.so.1.0.0 $RPM_BUILD_ROOT%{_nvidia_libdir}/libOpenCL.so
@@ -509,6 +517,11 @@ fi ||:
 
 
 %changelog
+* Wed Jan 28 2015 Przemysław Palacz <pprzemal@gmail.com> - 1:340.76-1
+- Update to 340.76
+- Add cuda-driver-devel and %%{_isa} virtual provides (follow main)
+- nvidia.icd does not need to be executable (follow main)
+
 * Sun Jan 11 2015 Przemysław Palacz <pprzemal@gmail.com> - 1:340.65-3
 - Switch libnvidia-ml and nvidia-debugdump to the cuda subpackage again
 
