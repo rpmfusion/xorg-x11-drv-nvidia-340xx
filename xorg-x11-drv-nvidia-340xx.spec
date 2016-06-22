@@ -8,7 +8,7 @@
 Name:            xorg-x11-drv-nvidia-340xx
 Epoch:           1
 Version:         340.96
-Release:         1%{?dist}
+Release:         2%{?dist}
 Summary:         NVIDIA's 340xx series proprietary display driver for NVIDIA graphic cards
 
 Group:           User Interface/X Hardware Support
@@ -519,6 +519,9 @@ fi ||:
 
 
 %changelog
+* Wed Jun 22 2016 Nicolas Chauvet <kwizart@gmail.com> - 1:340.96-2
+- Disable on armhfp for now
+
 * Tue Nov 17 2015 Nicolas Chauvet <kwizart@gmail.com> - 1:340.96-1
 - Update to 340.96
 
