@@ -16,7 +16,7 @@ License:         Redistributable, no modification permitted
 URL:             http://www.nvidia.com/
 Source0:         ftp://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
 Source1:         ftp://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
-Source4:         ftp://download.nvidia.com/XFree86/Linux-32bit-ARM/%{version}/NVIDIA-Linux-armv7l-gnueabihf-%{version}.run
+#Source4:         ftp://download.nvidia.com/XFree86/Linux-32bit-ARM/%{version}/NVIDIA-Linux-armv7l-gnueabihf-%{version}.run
 Source2:         99-nvidia.conf
 Source3:         nvidia-xorg.conf
 Source5:         00-avoid-glamor.conf
@@ -26,7 +26,9 @@ Source8:         00-ignoreabi.conf
 Source9:         nvidia-settings.desktop
 Source10:        nvidia.conf
 
-ExclusiveArch: i686 x86_64 armv7hl
+#ExclusiveArch: i686 x86_64 armv7hl
+# Issue with kernel module side
+ExclusiveArch: i686 x86_64
 
 BuildRequires:   desktop-file-utils
 %if 0%{?rhel} > 6 || 0%{?fedora} >= 15
