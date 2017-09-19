@@ -7,15 +7,15 @@
 
 Name:            xorg-x11-drv-nvidia-340xx
 Epoch:           1
-Version:         340.102
-Release:         2%{?dist}
+Version:         340.104
+Release:         1%{?dist}
 Summary:         NVIDIA's 340xx series proprietary display driver for NVIDIA graphic cards
 
 Group:           User Interface/X Hardware Support
 License:         Redistributable, no modification permitted
 URL:             http://www.nvidia.com/
-Source0:         ftp://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
-Source1:         ftp://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
+Source0:         http://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
+Source1:         http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
 #Source4:         ftp://download.nvidia.com/XFree86/Linux-32bit-ARM/%{version}/NVIDIA-Linux-armv7l-gnueabihf-%{version}.run
 Source2:         99-nvidia.conf
 Source3:         nvidia-xorg.conf
@@ -519,6 +519,10 @@ fi ||:
 
 
 %changelog
+* Tue Sep 19 2017 Leigh Scott <leigh123linux@googlemail.com> - 1:340.104-1
+- Update to 340.104
+- Fix source URL
+
 * Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 1:340.102-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
