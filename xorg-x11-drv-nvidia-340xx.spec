@@ -16,7 +16,6 @@ License:         Redistributable, no modification permitted
 URL:             http://www.nvidia.com/
 Source0:         http://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
 Source1:         http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
-#Source4:         ftp://download.nvidia.com/XFree86/Linux-32bit-ARM/%{version}/NVIDIA-Linux-armv7l-gnueabihf-%{version}.run
 Source2:         99-nvidia.conf
 Source3:         nvidia-xorg.conf
 Source5:         00-avoid-glamor.conf
@@ -26,7 +25,6 @@ Source8:         00-ignoreabi.conf
 Source9:         nvidia-settings.desktop
 Source10:        nvidia.conf
 
-#ExclusiveArch: i686 x86_64 armv7hl
 # Issue with kernel module side
 ExclusiveArch: i686 x86_64
 
@@ -146,9 +144,6 @@ sh %{SOURCE0} \
 %endif
 %ifarch x86_64
 sh %{SOURCE1} \
-%endif
-%ifarch armv7hl
-sh %{SOURCE4} \
 %endif
   --extract-only --target nvidiapkg-%{_target_cpu}
 ln -s nvidiapkg-%{_target_cpu} nvidiapkg
