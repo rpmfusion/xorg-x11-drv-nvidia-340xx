@@ -257,7 +257,7 @@ desktop-file-install --vendor "" \
     --set-icon=nvidia-settings \
     --set-key=Exec --set-value=nvidia-settings \
 %endif
-    nvidia-settings.desktop
+    nvidia-settings.desktop || :
 
 #Workaround for self made xorg.conf using a Files section.
 ln -fs ../../%{_nvidia_serie}/xorg $RPM_BUILD_ROOT%{_libdir}/xorg/modules/%{_nvidia_serie}-%{version}
