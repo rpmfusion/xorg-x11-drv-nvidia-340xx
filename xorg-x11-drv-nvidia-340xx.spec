@@ -251,13 +251,16 @@ touch -r %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/X11/xorg.conf.d/99-nvidia.conf
 install -pm 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/X11/
 
 # Desktop entry for nvidia-settings
+%if 0%{?el6}
+sed -i -e 's|__PIXMAP_PATH__/||' nvidia-settings.desktop
+%endif
 desktop-file-install --vendor "" \
     --dir $RPM_BUILD_ROOT%{_datadir}/applications/ \
 %if 0%{?rhel} > 6 || 0%{?fedora} >= 15
     --set-icon=nvidia-settings \
     --set-key=Exec --set-value=nvidia-settings \
 %endif
-    nvidia-settings.desktop || :
+    nvidia-settings.desktop
 
 #Workaround for self made xorg.conf using a Files section.
 ln -fs ../../%{_nvidia_serie}/xorg $RPM_BUILD_ROOT%{_libdir}/xorg/modules/%{_nvidia_serie}-%{version}
