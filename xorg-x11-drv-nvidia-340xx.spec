@@ -7,16 +7,15 @@
 
 Name:            xorg-x11-drv-nvidia-340xx
 Epoch:           1
-Version:         340.76
-Release:         1%{?dist}
+Version:         340.108
+Release:         2%{?dist}
 Summary:         NVIDIA's 340xx series proprietary display driver for NVIDIA graphic cards
 
 Group:           User Interface/X Hardware Support
 License:         Redistributable, no modification permitted
 URL:             http://www.nvidia.com/
-Source0:         ftp://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
-Source1:         ftp://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
-Source4:         ftp://download.nvidia.com/XFree86/Linux-32bit-ARM/%{version}/NVIDIA-Linux-armv7l-gnueabihf-%{version}.run
+Source0:         http://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
+Source1:         http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
 Source2:         99-nvidia.conf
 Source3:         nvidia-xorg.conf
 Source5:         00-avoid-glamor.conf
@@ -26,7 +25,8 @@ Source8:         00-ignoreabi.conf
 Source9:         nvidia-settings.desktop
 Source10:        nvidia.conf
 
-ExclusiveArch: i686 x86_64 armv7hl
+# Issue with kernel module side
+ExclusiveArch: i686 x86_64
 
 BuildRequires:   desktop-file-utils
 %if 0%{?rhel} > 6 || 0%{?fedora} >= 15
@@ -51,7 +51,6 @@ Conflicts:       xorg-x11-drv-nvidia-legacy
 Conflicts:       xorg-x11-drv-nvidia-71xx
 Conflicts:       xorg-x11-drv-nvidia-96xx
 Conflicts:       xorg-x11-drv-nvidia-173xx
-Conflicts:       xorg-x11-drv-nvidia-304xx
 Conflicts:       xorg-x11-drv-nvidia
 Conflicts:       xorg-x11-drv-fglrx
 Conflicts:       xorg-x11-drv-catalyst
@@ -83,7 +82,7 @@ For the full product support list, please consult the release notes
 http://download.nvidia.com/XFree86/Linux-x86/%{version}/README/index.html
 
 Please use the following documentation:
-http://rpmfusion.org/Howto/nVidia
+http://rpmfusion.org/Howto/NVIDIA
 
 
 %package devel
@@ -145,9 +144,6 @@ sh %{SOURCE0} \
 %endif
 %ifarch x86_64
 sh %{SOURCE1} \
-%endif
-%ifarch armv7hl
-sh %{SOURCE4} \
 %endif
   --extract-only --target nvidiapkg-%{_target_cpu}
 ln -s nvidiapkg-%{_target_cpu} nvidiapkg
@@ -412,8 +408,6 @@ fi ||:
 %ghost  %{_sysconfdir}/X11/xorg.conf.d/nvidia.conf
 %config %{_sysconfdir}/X11/xorg.conf.d/99-nvidia.conf
 %config %{_sysconfdir}/X11/xorg.conf.d/00-avoid-glamor.conf
-# Comment Xorg abi override
-#config %{_sysconfdir}/X11/xorg.conf.d/00-ignoreabi.conf
 %config(noreplace) %{_prefix}/lib/modprobe.d/blacklist-nouveau.conf
 %config(noreplace) %{_sysconfdir}/X11/nvidia-xorg.conf
 %config %{_sysconfdir}/xdg/autostart/nvidia-settings.desktop
@@ -517,16 +511,71 @@ fi ||:
 
 
 %changelog
+* Wed Feb 05 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1:340.108-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Mon Dec 23 2019 Leigh Scott <leigh123linux@gmail.com> - 1:340.108-1
+- Update to 340.108
+
+* Sun Sep 22 2019 Leigh Scott <leigh123linux@gmail.com> - 1:340.107-6
+- Fix conflict with rpmfusion-nonfree-obsolete-packages
+
+* Sat Aug 10 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1:340.107-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Tue Mar 05 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1:340.107-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Sun Aug 19 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1:340.107-3
+- Rebuilt for Fedora 29 Mass Rebuild binutils issue
+
+* Sat Jul 28 2018 RPM Fusion Release Engineering <sergio@serjux.com> - 1:340.107-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Fri Jun 08 2018 Leigh Scott <leigh123linux@googlemail.com> - 1:340.107-1
+- Update to 340.107
+
+* Fri Mar 02 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 1:340.106-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Wed Jan 17 2018 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1:340.106-1
+- Update to 340.106
+
+* Tue Sep 19 2017 Leigh Scott <leigh123linux@googlemail.com> - 1:340.104-1
+- Update to 340.104
+- Fix source URL
+
+* Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 1:340.102-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
+* Wed Feb 15 2017 Leigh Scott <leigh123linux@googlemail.com> - 1:340.102-1
+- Update to 340.102
+
+* Sun Jan 22 2017 Leigh Scott <leigh123linux@googlemail.com> - 1:340.101-3
+- Revert last commit
+
+* Sun Jan 22 2017 Leigh Scott <leigh123linux@googlemail.com> - 1:340.101-2
+- Fix module path (rfbz#4426)
+
+* Wed Dec 14 2016 leigh scott <leigh123linux@googlemail.com> - 1:340.101-1
+- Update to 340.101
+
+* Tue Sep 27 2016 Leigh Scott <leigh123linux@googlemail.com> - 1:340.98-1
+- Update to 340.98
+
+* Wed Jun 22 2016 Nicolas Chauvet <kwizart@gmail.com> - 1:340.96-2
+- Disable on armhfp for now
+
+* Tue Nov 17 2015 Nicolas Chauvet <kwizart@gmail.com> - 1:340.96-1
+- Update to 340.96
+
+* Thu Sep 03 2015 Leigh Scott <leigh123linux@googlemail.com> - 1:340.93-1
+- Update to 340.93
+
 * Wed Jan 28 2015 Przemysław Palacz <pprzemal@gmail.com> - 1:340.76-1
 - Update to 340.76
 - Add cuda-driver-devel and %%{_isa} virtual provides (follow main)
 - nvidia.icd does not need to be executable (follow main)
-
-* Tue Jan 27 2015 Leigh Scott <leigh123linux@googlemail.com> - 1:340.65-5
-- revert last commit
-
-* Thu Jan 15 2015 Przemysław Palacz <pprzemal@gmail.com> - 1:340.65-4
-- Replace main nvidia driver in F20 with this legacy version
 
 * Sun Jan 11 2015 Przemysław Palacz <pprzemal@gmail.com> - 1:340.65-3
 - Switch libnvidia-ml and nvidia-debugdump to the cuda subpackage again
