@@ -89,7 +89,7 @@ http://rpmfusion.org/Howto/NVIDIA
 Summary:         Development files for %{name}
 Group:           Development/Libraries
 Requires:        %{name}-libs%{_isa} = %{?epoch}:%{version}-%{release}
-Requires:        %{name}-cuda%{_isa} = %{?epoch}:%{version}-%{release}
+Requires:        %{name}-cuda = %{?epoch}:%{version}-%{release}
 
 #Don't put an epoch here
 Provides:        cuda-drivers-devel = %{version}
