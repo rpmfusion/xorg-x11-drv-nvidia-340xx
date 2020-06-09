@@ -8,7 +8,7 @@
 Name:            xorg-x11-drv-nvidia-340xx
 Epoch:           1
 Version:         340.108
-Release:         2%{?dist}
+Release:         3%{?dist}
 Summary:         NVIDIA's 340xx series proprietary display driver for NVIDIA graphic cards
 
 Group:           User Interface/X Hardware Support
@@ -514,6 +514,9 @@ fi ||:
 
 
 %changelog
+* Tue Jun 09 2020 Nicolas Chauvet <kwizart@gmail.com> - 1:340.108-3
+- Drop isa requires on -cuda sub-package
+
 * Wed Feb 05 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1:340.108-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
