@@ -8,7 +8,7 @@
 Name:            xorg-x11-drv-nvidia-340xx
 Epoch:           1
 Version:         340.108
-Release:         2%{?dist}
+Release:         3%{?dist}
 Summary:         NVIDIA's 340xx series proprietary display driver for NVIDIA graphic cards
 
 Group:           User Interface/X Hardware Support
@@ -89,7 +89,7 @@ http://rpmfusion.org/Howto/NVIDIA
 Summary:         Development files for %{name}
 Group:           Development/Libraries
 Requires:        %{name}-libs%{_isa} = %{?epoch}:%{version}-%{release}
-Requires:        %{name}-cuda%{_isa} = %{?epoch}:%{version}-%{release}
+Requires:        %{name}-cuda = %{?epoch}:%{version}-%{release}
 
 #Don't put an epoch here
 Provides:        cuda-drivers-devel = %{version}
@@ -251,6 +251,9 @@ touch -r %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/X11/xorg.conf.d/99-nvidia.conf
 install -pm 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/X11/
 
 # Desktop entry for nvidia-settings
+%if 0%{?el6}
+sed -i -e 's|__PIXMAP_PATH__/||' nvidia-settings.desktop
+%endif
 desktop-file-install --vendor "" \
     --dir $RPM_BUILD_ROOT%{_datadir}/applications/ \
 %if 0%{?rhel} > 6 || 0%{?fedora} >= 15
@@ -511,6 +514,9 @@ fi ||:
 
 
 %changelog
+* Tue Jun 09 2020 Nicolas Chauvet <kwizart@gmail.com> - 1:340.108-3
+- Drop isa requires on -cuda sub-package
+
 * Wed Feb 05 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1:340.108-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
