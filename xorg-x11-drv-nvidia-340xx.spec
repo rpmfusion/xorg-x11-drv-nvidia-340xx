@@ -55,6 +55,9 @@ Conflicts:       xorg-x11-drv-nvidia
 Conflicts:       xorg-x11-drv-fglrx
 Conflicts:       xorg-x11-drv-catalyst
 
+#No more updates
+Conflicts: Xorg >= 1.20.99
+
 %if 0%{?fedora} || 0%{?rhel} >= 7
 %global         __provides_exclude ^(lib.*GL.*\\.so.*|libOpenCL\\.so.*)$
 %global         __requires_exclude ^(lib.*GL.*\\.so.*|libOpenCL\\.so.*)$
@@ -518,6 +521,7 @@ fi ||:
 %changelog
 * Wed Sep 22 2021 Nicolas Chauvet <kwizart@gmail.com> - 1:340.108-8
 - Update arched requires on el8+
+- Add Conflicts for newer Xorg releases
 
 * Wed Aug 04 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1:340.108-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
