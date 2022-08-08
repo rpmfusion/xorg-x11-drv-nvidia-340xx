@@ -8,7 +8,7 @@
 Name:            xorg-x11-drv-nvidia-340xx
 Epoch:           1
 Version:         340.108
-Release:         9%{?dist}
+Release:         10%{?dist}
 Summary:         NVIDIA's 340xx series proprietary display driver for NVIDIA graphic cards
 
 Group:           User Interface/X Hardware Support
@@ -519,6 +519,10 @@ fi ||:
 
 
 %changelog
+* Mon Aug 08 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1:340.108-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild and ffmpeg
+  5.1
+
 * Thu Feb 10 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1:340.108-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
