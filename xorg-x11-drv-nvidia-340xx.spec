@@ -8,7 +8,7 @@
 Name:            xorg-x11-drv-nvidia-340xx
 Epoch:           1
 Version:         340.108
-Release:         10%{?dist}
+Release:         11%{?dist}
 Summary:         NVIDIA's 340xx series proprietary display driver for NVIDIA graphic cards
 
 Group:           User Interface/X Hardware Support
@@ -175,7 +175,8 @@ install -m 0755 -d $RPM_BUILD_ROOT%{_bindir}
 
 # ld.so.conf.d file
 install -m 0755 -d       $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/
-echo "%{_nvidia_libdir}" > $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/nvidia-%{_lib}.conf
+echo "%{_nvidia_libdir}/tls" > $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/nvidia-%{_lib}.conf
+echo "%{_nvidia_libdir}" >> $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/nvidia-%{_lib}.conf
 
 #Blacklist nouveau (since F-11)
 install    -m 0755 -d         $RPM_BUILD_ROOT%{_prefix}/lib/modprobe.d/
@@ -519,6 +520,9 @@ fi ||:
 
 
 %changelog
+* Sun Apr 23 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com> - 1:340.108-11
+- Fix the tls library discovery due to changed behaviour in glibc-2.37-1
+
 * Mon Aug 08 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1:340.108-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild and ffmpeg
   5.1
