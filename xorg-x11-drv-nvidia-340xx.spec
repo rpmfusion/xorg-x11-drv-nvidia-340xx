@@ -8,7 +8,7 @@
 Name:            xorg-x11-drv-nvidia-340xx
 Epoch:           1
 Version:         340.108
-Release:         11%{?dist}
+Release:         12%{?dist}
 Summary:         NVIDIA's 340xx series proprietary display driver for NVIDIA graphic cards
 
 Group:           User Interface/X Hardware Support
@@ -520,6 +520,9 @@ fi ||:
 
 
 %changelog
+* Fri Apr 12 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com> - 1:340.108-12
+- Use the nvidia driver explicitly instead of relying on an autoconfigured driver
+
 * Sun Apr 23 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com> - 1:340.108-11
 - Fix the tls library discovery due to changed behaviour in glibc-2.37-1
 
