@@ -8,7 +8,7 @@
 Name:            xorg-x11-drv-nvidia-340xx
 Epoch:           1
 Version:         340.108
-Release:         12%{?dist}
+Release:         13%{?dist}
 Summary:         NVIDIA's 340xx series proprietary display driver for NVIDIA graphic cards
 
 Group:           User Interface/X Hardware Support
@@ -252,7 +252,8 @@ install -pm 0644 %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/X11/xorg.conf.d
 # Comment Xorg abi override
 #install -pm 0644 %{SOURCE8} $RPM_BUILD_ROOT%{_sysconfdir}/X11/xorg.conf.d
 sed -i -e 's|@LIBDIR@|%{_libdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/X11/xorg.conf.d/99-nvidia.conf
-sed -i -e 's|nvidia|%{_nvidia_serie}|g' $RPM_BUILD_ROOT%{_sysconfdir}/X11/xorg.conf.d/99-nvidia.conf
+sed -i -e 's|xorg-x11-drv-nvidia|xorg-x11-drv-%{_nvidia_serie}|g' $RPM_BUILD_ROOT%{_sysconfdir}/X11/xorg.conf.d/99-nvidia.conf
+sed -i -e 's|/nvidia/xorg|/%{_nvidia_serie}/xorg|g' $RPM_BUILD_ROOT%{_sysconfdir}/X11/xorg.conf.d/99-nvidia.conf
 touch -r %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/X11/xorg.conf.d/99-nvidia.conf
 install -pm 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/X11/
 
@@ -520,6 +521,9 @@ fi ||:
 
 
 %changelog
+* Thu Apr 18 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com> - 1:340.108-13
+- Fix sed replacing nvidia with nvidia-340xx
+
 * Fri Apr 12 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com> - 1:340.108-12
 - Use the nvidia driver explicitly instead of relying on an autoconfigured driver
 
